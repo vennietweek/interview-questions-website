@@ -24,24 +24,16 @@ type Answer {
   answer: String!
 }
 
-## Queries ##
 type Query {
-  #USV related  
-  getUserProfile: User
-  
-  #QSV related
+  getUserProfile(id: ID!): User
   getAllQuestions: [Question]
-  getUserQuestions: [Question]
+  getUserQuestions(id: ID!): [Question]
 }
 
-## Mutations ##
 type Mutation {
-  #USV Related  
-  signUpUser(name: String!, email: String!, profile: UserProfileInput!): User
-  updateUserProfile(profile: UserProfileInput!): User
-  deregisterUser: ID
-  
-  #QSV Related
+  signUpUser(name: String!, email: String!): User
+  updateUserProfile(name: String, email: String): User
+  deregisterUser(id: ID!): ID
   addQuestion(title: String!, description: String!, complexity: String): Question
   deleteQuestion(id: ID!): ID
   updateQuestion(id: ID!, title: String, description: String, complexity: String): Question

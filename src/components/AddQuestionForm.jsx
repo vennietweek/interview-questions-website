@@ -2,24 +2,28 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 export function AddQuestionForm() {
   return (
     <>
+    <Container fluid="sm">
     <Card>
-    <FloatingLabel controlId="floatingInput" label="Title" className="mb-3">
+    <FloatingLabel controlId="floatingInput" label="Question Title" className="mb-3">
     <Form.Control type="email" placeholder="Question Title" />
     </FloatingLabel>
     <br />
-    <FloatingLabel controlId="floatingTextarea2" label="Description">
+    <FloatingLabel controlId="floatingTextarea2" label="Question Description">
     <Form.Control as="textarea" placeholder="Question Description" style={{ height: '100px' }}/>
     </FloatingLabel>
     <br />
     <Form>
       <Row>
         <Col>
-            <Form.Select placeholder ="Category">
+            <Form.Select placeholder="Category">
+            <option>Select category</option>
             <option value="General">General</option>
             <option value="Motivation and Career Goals">Motivation and Career Goals</option>
             <option value="Technical Competency">Technical Competency</option>
@@ -33,15 +37,22 @@ export function AddQuestionForm() {
         </Col>
         <Col>
             <Form.Select placeholder ="Complexity">
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
+            <option>Select complexity</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
             </Form.Select>          
         </Col>
       </Row>
+      <br />
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+      <br />
     </Form>
     <br />
     </Card>
+    </Container>
     </>
   );
 }

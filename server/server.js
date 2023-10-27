@@ -5,55 +5,53 @@ const { GraphQLScalarType } = require('graphql');
 const { Kind } = require('graphql/language');
 const { MongoClient } = require('mongodb');
 const resolvers = require('./resolvers.js');
+const path = require('path');
+const app = express();
 
 /******************************************* 
 DATABASE CONNECTION CODE
 ********************************************/
-//Note that the below variable is a global variable 
-//that is initialized in the connectToDb function and used elsewhere.
 let db;
 
-//Function to connect to the database
 async function connectToDb() {
     const url = 'mongodb://localhost/assignment3db';
     const client = new MongoClient(url, { useNewUrlParser: true });
     await client.connect();
     console.log('Connected to MongoDB at', url);
     db = client.db();
-  }
+}
 
 /******************************************* 
 GraphQL CODE
 ********************************************/  
-
-
-/******************************************* 
-SERVER INITIALIZATION CODE
-********************************************/
-const app = express();
-
-//Attaching a Static web server.
-app.use(express.static('public')); 
-
-//Creating and attaching a GraphQL API server.
 const server = new ApolloServer({
-  typeDefs: fs.readFileSync('./server/schema.graphql', 'utf-8'),
-  resolvers,
-  formatError: error => {
-    console.log(error);
-    return error;
-  },
+    typeDefs: fs.readFileSync('./server/schema.graphql', 'utf-8'),
+    resolvers,
+    formatError: error => {
+        console.log(error);
+        return error;
+    },
 });
+
+//Attach Apollo to your Express app
 server.applyMiddleware({ app, path: '/graphql' });
 
-//Starting the server that runs forever.
-  (async function () {
+//Serve React build folder
+app.use(express.static(path.join(__dirname, '../build')));
+
+//Serve React's index.html for all other routes, so that routing is handled by React
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+});
+
+//Starting the server
+(async function() {
     try {
-      await connectToDb();
-      app.listen(3000, function () {
-        console.log('App started on port 3000');
-      });
+        await connectToDb();
+        app.listen(3000, function() {
+            console.log('App started on port 3000');
+        });
     } catch (err) {
-      console.log('ERROR:', err);
+        console.log('ERROR:', err);
     }
-  })();
+})();

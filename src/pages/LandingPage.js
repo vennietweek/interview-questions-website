@@ -1,6 +1,7 @@
-import { NavBar } from '../components/NavBar'
-import { AddQuestionForm } from '../components/AddQuestionForm'
-import { QuestionList } from '../components/QuestionList'
+import { NavBar } from '../components/NavBar.jsx'
+import { AddQuestionForm } from '../components/AddQuestionForm.jsx'
+import { QuestionList } from '../components/QuestionList.jsx'
+
 export function LandingPage (){
     return(
         <>

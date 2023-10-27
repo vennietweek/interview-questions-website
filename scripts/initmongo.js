@@ -26,7 +26,7 @@ db.createCollection("questions")
 db.questions.insert([
   {
     questionId: 1,
-    userId: "1", // Replace with an actual user ID or omit if not relevant
+    userId: "1", 
     title: "What is JavaScript?",
     description: "Explain what JavaScript is and its role in web development.",
     type: "Technical Competency",

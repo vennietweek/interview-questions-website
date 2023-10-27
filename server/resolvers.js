@@ -14,7 +14,6 @@ const resolvers = {
     }
 };
 
-// Query Resolvers
 async function getUserProfileResolver(_, { id }) {
     const user = await db.collection('users').findOne({ id });
     return user;
@@ -30,7 +29,6 @@ async function getUserQuestionsResolver(_, { userId }) {
     return questions;
 }
 
-// Mutation Resolvers
 async function signUpUserResolver(_, args) {
     try {
       const { name, email} = args;

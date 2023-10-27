@@ -4,7 +4,7 @@ import Badge from 'react-bootstrap/Badge';
 export function Question({question}) {
     return (
       <Card>
-        <Card.Header>{question.id}</Card.Header>
+        <Card.Header>{question.questionId}</Card.Header>
         <Card.Body>
           <Card.Title>{question.title}</Card.Title>
           <Card.Text>{question.description}</Card.Text>
