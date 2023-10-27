@@ -71,19 +71,16 @@ async function updateUserProfileResolver(_, { name, email }) {
 }
 
 async function deregisterUserResolver(_, args, context) {
-    // Assuming you have user's ID in the context (e.g. from an authenticated request)
     const { userId } = context;
     await db.collection('users').deleteOne({ id: userId });
-    return userId;  // Returning the ID of the deleted user
+    return userId;  
 }
 
 async function addQuestionResolver(_, { title, description, complexity }) {
-    // Assuming you have user's ID in the context (e.g. from an authenticated request)
     const question = {
         title,
         description,
         complexity,
-        // ... (other fields can be added here)
     };
     const result = await db.collection('questions').insertOne(question);
     return result.ops[0];
@@ -91,7 +88,7 @@ async function addQuestionResolver(_, { title, description, complexity }) {
 
 async function deleteQuestionResolver(_, { id }) {
     await db.collection('questions').deleteOne({ questionId: id });
-    return id;  // Returning the ID of the deleted question
+    return id;  
 }
 
 async function updateQuestionResolver(_, { id, title, description, complexity }) {
