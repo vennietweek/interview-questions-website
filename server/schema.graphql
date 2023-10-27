@@ -2,25 +2,9 @@
 ## Types and Inputs ##
 type User {
   id: ID!
-  username: String!
-  password: String!
+  name: String!
   email: String!
   questions: [Question]
-  profile: UserProfile
-}
-
-type UserProfile {
-  age: Int
-  location: String
-  # Add more profile fields as needed
-}
-
-input UserProfileInput {
-  firstName: String!
-  lastName: String!
-  age: Int
-  location: String
-  # Add more profile fields as needed
 }
 
 type Question {
