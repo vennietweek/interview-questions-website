@@ -1,21 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Question } from './Question';
 import { GET_ALL_QUESTIONS } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
+import Container from 'react-bootstrap/Container';
 
-export function QuestionList() {
-    const { loading, error, data } = useQuery(GET_ALL_QUESTIONS);
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
-
-    const questionsData = data.getAllQuestions;
+export function QuestionList({ questions }) {
 
     return (
         <div>
-            {questionsData.map(question => (
+            <Container fluid="sm">
+            <h4>All Questions</h4><br />
+            {questions.map(question => (
                 <Question key={question.questionId} question={question} />
             ))}
+            </Container>
         </div>
     );
 }

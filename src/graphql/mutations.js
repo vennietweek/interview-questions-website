@@ -1,58 +1,64 @@
-// src/graphql/mutations.js
 import { gql } from '@apollo/client';
 
 export const SIGN_UP_USER = gql`
-  mutation SignUpUser($name: String!, $email: String!, $profile: UserProfileInput!) {
-    signUpUser(name: $name, email: $email, profile: $profile) {
-      id
+  mutation SignUpUser($name: String!, $email: String!) {
+    signUpUser(name: $name, email: $email) {
+      userId
       name
       email
-      questions {
-        questionId
-        title
-        description
-        type
-        complexity
-        postedBy
-      }
     }
   }
 `;
 
 export const UPDATE_USER_PROFILE = gql`
-  mutation UpdateUserProfile($profile: UserProfileInput!) {
-    updateUserProfile(profile: $profile) {
-      id
+  mutation UpdateUserProfile($userId: ID!, $name: String!) {
+    updateUserProfile(userId: $userId, name: $name) {
+      userId
       name
       email
-      questions {
-        questionId
-        title
-        description
-        type
-        complexity
-        postedBy
-      }
     }
   }
 `;
 
+export const DEREGISTER_USER = gql`
+  mutation DeregisterUser($userId: ID!) {
+    deregisterUser(userId: $userId)
+  }
+`;
+
 export const ADD_QUESTION = gql`
-  mutation AddQuestion($title: String!, $description: String!, $complexity: String!) {
-    addQuestion(title: $title, description: $description, complexity: $complexity) {
+  mutation AddQuestion($userId: ID!, $title: String!, $description: String!, $type: String!, $complexity: String!) {
+    addQuestion(userId: $userId, title: $title, description: $description, type: $type, complexity: $complexity) {
       questionId
       userId
       title
       description
       type
       complexity
-      postedBy
-      answers {
-        questionId
-        userId
-        answer
-      }
     }
   }
 `;
 
+export const UPDATE_QUESTION = gql`
+  mutation UpdateQuestion(
+    $questionId: ID!
+    $title: String
+    $description: String
+    $type: String
+    $complexity: String
+  ) {
+    updateQuestion(questionId: $questionId, title: $title, description: $description, type: $type, complexity: $complexity) {
+      questionId
+      title
+      description
+      type
+      complexity
+    }
+  }
+`;
+
+export const DELETE_QUESTION = gql`
+  mutation DeleteQuestion($questionId: ID!) {
+    deleteQuestion(questionId: $questionId)
+  }
+`

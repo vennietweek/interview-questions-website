@@ -1,7 +1,5 @@
-#################### User Service Related APIs ####################
-## Types and Inputs ##
 type User {
-  id: ID!
+  userId: ID!
   name: String!
   email: String!
   questions: [Question]
@@ -14,7 +12,7 @@ type Question {
   description: String!
   type: String!
   complexity: String!
-  postedBy: String!
+  postedBy: ID!
   answers: [Answer]
 }
 
@@ -25,16 +23,16 @@ type Answer {
 }
 
 type Query {
-  getUserProfile(id: ID!): User
+  getUserProfile(email: String!): User
   getAllQuestions: [Question]
-  getUserQuestions(id: ID!): [Question]
+  getUserQuestions(userId: ID!): [Question]
 }
 
 type Mutation {
   signUpUser(name: String!, email: String!): User
-  updateUserProfile(name: String, email: String): User
-  deregisterUser(id: ID!): ID
-  addQuestion(title: String!, description: String!, complexity: String): Question
-  deleteQuestion(id: ID!): ID
-  updateQuestion(id: ID!, title: String, description: String, complexity: String): Question
+  updateUserProfile(userId: ID!, name: String): User
+  deregisterUser(userId: ID!): ID
+  addQuestion(userId: ID!, title: String!, description: String!, type: String!, complexity: String!): Question
+  deleteQuestion(questionId: ID!): ID
+  updateQuestion(questionId: ID!, title: String, description: String, type: String, complexity: String): Question
 }

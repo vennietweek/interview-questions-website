@@ -13,24 +13,6 @@ export const GET_ALL_QUESTIONS = gql`
   }
 `;
 
-export const GET_USER_PROFILE = gql`
-  query GetUserProfile {
-    getUserProfile {
-      id
-      name
-      email
-      questions {
-        questionId
-        title
-        description
-        type
-        complexity
-        postedBy
-      }
-    }
-  }
-`;
-
 export const GET_USER_QUESTIONS = gql`
   query GetUserQuestions($userId: ID!) {
     getUserQuestions(userId: $userId) {
@@ -40,12 +22,16 @@ export const GET_USER_QUESTIONS = gql`
       description
       type
       complexity
-      postedBy
-      answers {
-        questionId
-        userId
-        answer
-      }
+    }
+  }
+`;
+
+export const GET_USER_PROFILE = gql`
+  query GetUserProfile($email: String!) {
+    getUserProfile(email: $email) {
+      userId
+      name
+      email
     }
   }
 `;
