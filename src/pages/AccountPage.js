@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { UserContext } from '../components/UserProvider';
 import { NavBar } from '../components/NavBar';
 import { Profile } from '../components/Profile'
-import { SignUpLogin } from '../components/SignUpLogin'
+import { AccountManagement } from '../components/AccountManagement'
 
 export function AccountPage() {
 
@@ -20,7 +20,7 @@ export function AccountPage() {
         return (
             <>
                 <NavBar />
-                <SignUpLogin />
+                <AccountManagement />
             </>
         );
     }

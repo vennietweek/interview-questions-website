@@ -1,6 +1,8 @@
 ## Setup guide
 
-Hello! These are the steps I use to set up my project, which is a hybrid of a Create React App project and our professor's template. As such, there are some specific commands that need to be run.
+Hello! These are the steps I use to set up my project, which is a hybrid of a Create React App project and our professor's template. 
+
+As such, there are some specific commands that need to be run.
 
 ### Docker
 
@@ -24,10 +26,11 @@ The container node version needs to be updated, otherwise errors will occur:
 
 ### Initialising the DB
 
+Open a terminal for Mongo:
 1. `systemctl start mongod`: Start MongoDB service
 2. `mongo`: Enter mongo shell
 3. `use assignment3db`: Creates database
-4. Navigate to `scripts` path in project folder
+4. Switch or create a new terminal in the project folder. Navigate to `scripts` path.
 5. `mongo assignment3db initmongo.js`: Populates database
 6. `show dbs`: In Mongo shell, verify that database has been created
 
@@ -35,4 +38,4 @@ The container node version needs to be updated, otherwise errors will occur:
 
 1. `npm run build`: Create build directory
 2. `npm run server`: Runs the server on Port 3000
-3. `npm run start`: Runs the React app. When prompted to open in another port, select yes. This should open up localhost:3001, which is where testing should take place (Port 3000 also will display the app, but some components will not be rendered properly).
+3. `npm run start`: In another terminal, run the React app. When prompted to open in another port, select yes. This should open up localhost:3001, which is where testing should take place (Port 3000 also will display the app, but some components will not be rendered properly).

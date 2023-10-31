@@ -154,7 +154,7 @@ async function deleteQuestionResolver(_, { questionId }) {
     
     const result = await db.collection('questions').deleteOne({ _id: new ObjectId(questionId) });
     if (result.acknowledged) {
-        return questionId;  
+        return true;  
     } else {
         throw new Error('Failed to delete question.');
     }

@@ -4,9 +4,11 @@ import { GET_USER_QUESTIONS } from '../graphql/queries';
 import { UPDATE_QUESTION, DELETE_QUESTION } from '../graphql/mutations';
 import { MyQuestion } from './MyQuestion';
 import { Modal, Button, Container, Form, Row, Col } from 'react-bootstrap/';
+import { useToast } from '../components/ToastProvider';
 
 export function MyQuestionsList({ userId }) {
 
+    const addToast = useToast();
     const { loading, error, data, refetch } = useQuery(GET_USER_QUESTIONS, { variables: { userId } });
     const [updateQuestion] = useMutation(UPDATE_QUESTION);
     const [deleteQuestion] = useMutation(DELETE_QUESTION);
@@ -46,23 +48,21 @@ export function MyQuestionsList({ userId }) {
             complexity: editedComplexity
         };
         updateQuestion({ variables: { questionId: selectedQuestion.questionId, ...editedQuestionData } });
+        addToast({ message: 'Question successfully updated.', type: 'success' });
         closeModal();
     }
 
     const handleDeleteQuestion = async (questionId) => {
         if (!window.confirm("Are you sure you want to delete this question?")) return;
-        try {
-          const { data } = await deleteQuestion({ variables: { questionId } });
-          if (data && data.deleteQuestion.success) {
+        const { data } = await deleteQuestion({ variables: { questionId } });
+        if (data.deleteQuestion) {
+            addToast({ message: 'Question successfully deleted.', type: 'success' });
             refetch();
-          } else {
-            console.error("Failed to delete question:", data.deleteQuestion.message);
-          }
-        } catch (error) {
-          console.error("Error deleting question:", error);
+        } else {
+            addToast({ message: 'Failed to delete question', type: 'danger' });
         }
-      };
-
+    };
+    
     if (loading) return <div>Loading...</div>;
     if (error) {
         console.error(error);

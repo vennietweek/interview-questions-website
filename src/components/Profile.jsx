@@ -3,18 +3,18 @@ import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { Container, Button, Modal, Form } from 'react-bootstrap';
 import { UserContext } from '../components/UserProvider';
-import { NavBar } from '../components/NavBar';
 import { UPDATE_USER_PROFILE, DEREGISTER_USER } from '../graphql/mutations';
+import { useToast } from '../components/ToastProvider';
 
 export function Profile() {
     
     const navigate = useNavigate();
+    const addToast = useToast();
     const { userId, setUserId, email, setEmail, name, setName } = useContext(UserContext);
     const [updateUserProfile] = useMutation(UPDATE_USER_PROFILE);
     const [deregisterUser] = useMutation(DEREGISTER_USER);
     const [showEditModal, setShowEditModal] = useState(false);
     const [updatedName, setUpdatedName] = useState(name);
-    const [updatedEmail, setUpdatedEmail] = useState(email);
 
     const handleOpenEditModal = () => {
         setUpdatedName(name);
@@ -37,6 +37,10 @@ export function Profile() {
         if (data) {
             setName(updatedName);
             localStorage.setItem('name', updatedName);
+            addToast({ message: 'Profile updated.', type: 'success' });
+        }
+        else {
+            addToast({ message: 'Profile update error.', type: 'danger' });
         }
         handleCloseModal()
     };    
@@ -46,9 +50,10 @@ export function Profile() {
             variables: { userId: userId },
             });
         if (data) {
+            addToast({ message: 'User deletion success.', type: 'success' });
             handleLogout()
         } else {
-            console.log('Error with deleting user')
+            addToast({ message: 'User deletion failed.', type: 'danger' });
         }
     };
 

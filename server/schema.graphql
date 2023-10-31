@@ -33,6 +33,6 @@ type Mutation {
   updateUserProfile(userId: ID!, name: String): User
   deregisterUser(userId: ID!): ID
   addQuestion(userId: ID!, title: String!, description: String!, type: String!, complexity: String!): Question
-  deleteQuestion(questionId: ID!): ID
+  deleteQuestion(questionId: ID!): Boolean!
   updateQuestion(questionId: ID!, title: String, description: String, type: String, complexity: String): Question
 }

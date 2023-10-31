@@ -8,9 +8,11 @@ import { NavBar } from '../components/NavBar.jsx';
 import { AddQuestionForm } from '../components/AddQuestionForm.jsx';
 import { QuestionList } from '../components/QuestionList.jsx';
 import { Modal, Button } from 'react-bootstrap';
+import { useToast } from '../components/ToastProvider';
 
 export function LandingPage() {
     const navigate = useNavigate();
+    const addToast = useToast();
     const [questions, setQuestions] = useState([]);
     const { userId } = useContext(UserContext);  
     const [addQuestion] = useMutation(ADD_QUESTION);
@@ -40,11 +42,12 @@ export function LandingPage() {
             });
 
             if (data && data.addQuestion) {
-                setQuestions(prevQuestions => [data.addQuestion, ...prevQuestions]);  
+                setQuestions(prevQuestions => [data.addQuestion, ...prevQuestions]);
+                addToast({ message: 'Question successfully added.', type: 'success' });
             }
 
         } catch (error) {
-            console.error("Error adding question:", error);
+            addToast({ message: 'Failed to add question.', type: 'danger' });
         }
     };
 
