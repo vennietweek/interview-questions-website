@@ -18,7 +18,7 @@ The usual steps:
 
 The container node version needs to be updated, otherwise errors will occur:
 
-1. `node -v': The container version is 10. It needs to be updated to a more recent version for this project.
+1. `node -v`: The container version is 10. It needs to be updated to a more recent version for this project.
 2. `nvm install node`: Installs latest version of node
 3. `nvm use node`: Uses latest version of node
 
